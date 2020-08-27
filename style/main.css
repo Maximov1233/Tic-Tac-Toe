@@ -9,7 +9,13 @@ html {
   font-size: 14px;
 }
 
-body .game {
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: orange;
+  color: #fff;
+}
+
+body .container {
   margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -26,13 +32,75 @@ body .game {
           align-items: center;
 }
 
-body .game .levels {
-  margin-bottom: 20px;
+body .container .game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 100px;
 }
 
-body .game canvas {
+body .container .game .options {
+  margin-bottom: 20px;
+  background: #23f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+body .container .game .options .option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+}
+
+body .container .game .options .option label {
+  margin-right: 10px;
+}
+
+body .container .game canvas {
+  background: #1A1A1A;
   display: block;
   margin: 0 auto;
-  border: 1px solid black;
+  margin-right: 50px;
+}
+
+body .container .start {
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #23f;
+  color: #fff;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */

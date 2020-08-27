@@ -9,19 +9,64 @@ html {
 }
 
 body {
-    .game {
+    font-family: 'Montserrat', sans-serif;
+    background: orange;
+    color: #fff;
+    .container {
         margin-top: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        .levels {
-            margin-bottom: 20px;
+        .game {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            .options {
+                margin-bottom: 20px;
+                background: #23f;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 4px;
+                font-size: 18px;
+                .option {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 10px 0;
+                    label {
+                        margin-right: 10px;
+                    }
+                }
+            }
+            canvas {
+                // background: url(../img/bg.png) no-repeat center;
+                background: #1A1A1A;
+                display: block;
+                margin: 0 auto;
+                // margin-left: 320px;
+                margin-right: 50px;
+                // margin-right: 200px;
+                // border: 1px solid black;
+            }
         }
-        canvas {
-            display: block;
-            margin: 0 auto;
-            border: 1px solid black;
+        
+        .start {
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: #23f;
+            color: #fff;
+            cursor: pointer;
         }
     }
     

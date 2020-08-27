@@ -5,20 +5,19 @@ const walls = document.querySelector('#walls'),
     collision = document.querySelector('#collision'),
     button = document.querySelector('button');
 
+const cellSize = 20,
+    cellMargin =  2,
+    foodColor = '#E93323',
+    snakeColor = '#6FDA40',
+    freeColor = 'transparent';
 
-const cellSize = 30,
-    cellMargin = 2,
-    foodColor = 'green',
-    snakeColor = 'grey',
-    freeColor = 'rgba(0, 0, 0, 0.3)';
+const rows = 34,
+    columns = 70;
 
-const rows = 20,
-    columns = 20;
+const gamePadding = 0;
 
-const gamePadding = 5;
-
-const startCoolDown = 250,
-    levelCoolDown = 2;
+const startCoolDown = 150,
+    levelCoolDown = 0.4;
 
 let snakeLength = 1;
 
@@ -27,20 +26,19 @@ let wall = true;
 canvas.width = cellSize * columns + (columns - 1) * cellMargin + 2 * gamePadding;
 canvas.height = cellSize * rows + (rows - 1) * cellMargin + 2 * gamePadding;
 
-const drawRect = (param) => {
+const drawRect = (param) => { // draws the blocks of game
     context.beginPath();
     context.rect(param.x, param.y, param.width, param.height);
     context.fillStyle = param.fillColor;
     context.fill();
 };
 
-const clearCanvas = () => {
+const clearCanvas = () => { // clears the canvas' context
     context.clearRect(0, 0, canvas.width, canvas.height);
 };
 
-const createGameMap = (columns, rows) => {
+const createGameMap = (rows, columns) => { // creates map by adding rows and columns
     const map = [];
-
     for (let x = 0; x < columns; x++) {
         const row = [];
 
@@ -58,21 +56,16 @@ const createGameMap = (columns, rows) => {
     return map;
 };
 
-const getRandomFreeCell = (map, isSnake) => {
+const getRandomFreeCell = (map, isSnake) => { // gets random cell
     const freeCells = [];
-    if (isSnake) {
-        console.log('a');
+    if (isSnake) { // to find the center of canvas to set snake there
         for (const cell of map.flat()) {
-        
-            if (cell.x === 10 && cell.y === 10) {
-                console.log(cell);
+            if (cell.x === 35 && cell.y === 17) { // center of the canvas
                 return cell;
             }
         }
     } else {
         for (const cell of map.flat()) {
-        
-
             if (cell.snake || cell.food) {
                 continue;
             }
@@ -84,14 +77,14 @@ const getRandomFreeCell = (map, isSnake) => {
     }
 };
 
-const drawGameMap = (map) => {
+const drawGameMap = (map) => { // sets parameters by each sell and calls function that draws them
     for (const cell of map.flat()) {
         const param = {
             x: gamePadding + cell.x * (cellSize + cellMargin),
             y: gamePadding + cell.y * (cellSize + cellMargin),
             width: cellSize,
             height: cellSize,
-            fillColor: freeColor
+            fillColor: freeColor,
         };
 
         if (cell.food) {
@@ -100,6 +93,7 @@ const drawGameMap = (map) => {
 
         if (cell.snake) {
             param.fillColor = snakeColor;
+            
         }
 
         drawRect(param);
@@ -107,8 +101,8 @@ const drawGameMap = (map) => {
 };
 
 const getCell = (x, y) => {
-    if ((x < 0) || (x >= columns) || (y < 0) || (y >= rows)) {
-        if (walls.checked) {
+    if ((x < 0) || (x >= columns) || (y < 0) || (y >= rows)) { // snake isn't standing out of canvas
+        if (walls.checked) { // if we set to go through the walls
             if (x < 0) x += rows;
             if (x >= columns) x -= columns;
             if (y < 0) y += rows;
@@ -125,17 +119,12 @@ const getCell = (x, y) => {
     }
 };
 
-const moveSnake = () => {
-    
-    for (let i = snake.length - 1; i > 0; i--) {
+const moveSnake = () => {  // moves the snake 
+    for (let i = snake.length - 1; i > 0; i--) { // moves all snake cells towards in one block
         snake[i] = snake[i - 1];
     }
 
-    // if (snake.length === 4) {
-    //     console.log(snake);
-    // }
-
-    if (snakeDirection === 'left') {
+    if (snakeDirection === 'left') { // now the head cell has two blocks (tail, head). Here it goes depending on pressed arrow
         snake[0] = getCell(snake[0].x - 1, snake[0].y);
     } else if (snakeDirection === 'right') {
         snake[0] = getCell(snake[0].x + 1, snake[0].y);
@@ -145,7 +134,7 @@ const moveSnake = () => {
         snake[0] = getCell(snake[0].x, snake[0].y + 1);
     }
 
-    if (snake[0] !== undefined) {
+    if (snake[0] !== undefined) { // deletes all snake cells and adds the latest version
 
         for (const cell of map.flat()) {
             cell.snake = false;
@@ -157,47 +146,47 @@ const moveSnake = () => {
     }
 };
 
-const showState = () => {
-    context.fillStyle = 'black';
+const showState = () => { // showing the score and difficulty right now
+    context.fillStyle = 'white';
     context.font = '20px Arial';
     context.fillText(`Очки: ${snake.length * 5}. Сложность: ${snakeLength}`, 10, 30);
 };
 
-const drawPaused = () => {
+const drawPaused = () => { // opens when player loses
     context.beginPath();
     context.rect(0, 0, canvas.width, canvas.height);
     context.fillStyle = 'rgba(0, 0, 0, 0.2)';
     context.fill();
 
-    context.fillStyle = 'black';
+    context.fillStyle = 'white';
     context.font = '20px Arial';
     context.fillText(`Очки: ${snake.length * 5}. Конец игры`, canvas.width / 2, canvas.height / 2);
+
 };
 
-// const init = () => {
-//     map = createGameMap(rows, columns);
-//     const cell = getRandomFreeCell(map, true);
-//     snake = [cell];
+const init = () => { // starting function
+    button.innerHTML = 'Начать';
+    map = createGameMap(rows, columns);
+    const cell = getRandomFreeCell(map, true);
+    snake = [cell];
+    snakeLength = 1;
+    cell.snake = true;
 
-//     cell.snake = true;
+    snakeDirection = 'up',
+        nextSnakeDirection = 'up';
 
-//     snakeDirection = 'up',
-//         nextSnakeDirection = 'up';
-
-//     play = true;
-//     wall = true;
-//     coolDown = startCoolDown;
-//     getRandomFreeCell(map).food = true;
-// };
-
-// init();
+    play = true;
+    wall = true;
+    coolDown = startCoolDown;
+    getRandomFreeCell(map).food = true;
+    requestAnimationFrame(loop);
+};
 
 let prevTick = 0,
     play = true,
     coolDown = startCoolDown;
 
-const loop = (timestamp) => {
-
+const loop = (timestamp) => { // constantly-loading function
     requestAnimationFrame(loop);
     clearCanvas();
 
@@ -206,24 +195,26 @@ const loop = (timestamp) => {
         prevTick = timestamp;
         snakeDirection = nextSnakeDirection;
         moveSnake();
-        if (snake[0] === undefined) {
+        if (snake[0] === undefined) { // game over
             isEnd = true;
+            playSound("dead");
         } else {
             const head = snake[0],
                 tail = snake[snake.length - 1];
 
-            if (head.food) {
+            if (head.food) { // snake has eaten the food
                 head.food = false;
+                playSound("eat");
                 snake.push(tail);
-
                 getRandomFreeCell(map).food = true;
                 coolDown -= levelCoolDown;
                 snakeLength++;
             } else {
                 for (let i = 1; i < snake.length; i++) {
-                    if (snake[i] === snake[0]) {
+                    if (snake[i] === snake[0]) { // checks if head met it's cell
                         if (!collision.checked) {
                             isEnd = true;
+                            playSound("dead");
                         }
                         break;
                     }
@@ -237,7 +228,12 @@ const loop = (timestamp) => {
     drawGameMap(map);
     showState();
 
-    if (!play) drawPaused();
+    if (!play) {
+        drawPaused();
+        walls.removeAttribute('disabled');
+        collision.removeAttribute('disabled');
+        button.innerHTML = 'Начать заново';
+    }
 };
 
 let map = createGameMap(rows, columns);
@@ -251,7 +247,6 @@ cell.snake = true;
 
 let snakeDirection = 'up',
     nextSnakeDirection = 'up';
-
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowUp') {
@@ -278,5 +273,11 @@ document.addEventListener('keydown', (e) => {
 });
 
 button.addEventListener('click', () => {
-    requestAnimationFrame(loop);
+    if (play) {
+        requestAnimationFrame(loop);
+        walls.setAttribute('disabled', 'true');
+        collision.setAttribute('disabled', 'true');
+    } else {
+        init();
+    }
 });

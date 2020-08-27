@@ -5,17 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake</title>
     <link rel="stylesheet" href="./style/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="./src/sounds.js"></script>
 </head>
 <body>
-    <div class="game">
-        <div class="levels">
-            <label for="walls">Проход через стены</label>
-            <input type="checkbox" id="walls">
-            <label for="collision">Проход череез себя</label>
-            <input type="checkbox" id="collision">
-        </div>
-        <canvas></canvas>
-        <button>Начать</button>
+    <div class="container">
+        <div class="game">
+            <canvas></canvas>
+            <div class="options">
+                <p>Опции</p>
+                <div class="option">
+                    <label for="walls">Проход через стены</label>
+                    <input type="checkbox" id="walls">
+                </div>
+                <div class="option">
+                    <label for="collision">Проход череез себя</label>
+                    <input type="checkbox" id="collision">
+                </div>
+                
+            </div>
+        </div>      
+        <button class="start">Начать</button>
     </div>
     <script src="./src/script.js"></script>
 </body>
