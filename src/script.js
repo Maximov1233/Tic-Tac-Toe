@@ -1,9 +1,6 @@
 const cells = document.querySelectorAll('.cell'),
     cellsArr = Array.from(cells);
 
-    console.log(cellsArr);
-
-
 let crossCode = document.createElement('div');
 crossCode.className = 'cross';
 
@@ -12,10 +9,10 @@ crossCode.innerHTML = `
     <div class="line"></div>
 `;
 
-let circleCode = document.createElement('div');
-circleCode.className = 'circle';
+let circleCode = document.createElement('div'),
+    move = true;
 
-let move = true;
+circleCode.className = 'circle';
 
 const checkTwoArrays = (arrPat, arrChck) => {
     for (const item of arrPat) {
@@ -35,7 +32,7 @@ const winCheck = (arr) => {
         [0, 1, 2], // top straight
 
         [2, 5, 8], // right straight
-        
+
         [6, 7, 8], // bottom straight
 
         [0, 4, 8], // diagonal lefty
@@ -44,7 +41,7 @@ const winCheck = (arr) => {
 
         [3, 4, 5], // horizontal straight
 
-        [2, 5, 7], // vertical straight
+        [1, 4, 7], // vertical straight
     ];
 
     for (const win of wins) {
@@ -74,10 +71,14 @@ const win = () => {
     console.log(takenCrossCells, takenCircleCells);
 
     if (takenCrossCells.length >= 3 || takenCircleCells.length >= 3) {
-        if (winCheck(takenCrossCells) ||winCheck(takenCircleCells)) {
+        if (winCheck(takenCrossCells) || winCheck(takenCircleCells)) {
             return true;
         }
-    } 
+    }
+};
+
+const reloadPage = () => {
+    location.reload();
 };
 
 const gameStart = (cell) => {
@@ -87,33 +88,41 @@ const gameStart = (cell) => {
         if (win()) {
             setTimeout(() => {
                 alert('player wins');
-            }, 400);      
+                reloadPage();
+            }, 400);
         } else {
             move = !move;
-        } 
+        }
     }
 };
 
 cells.forEach((cell) => {
     cell.addEventListener('click', () => {
         gameStart(cell);
-        setTimeout(() => computerMove(), 3000); 
+        setTimeout(() => computerMove(), 2000);
     });
 });
 
 const computerMove = () => {
     let freeCells = [];
+
     for (const cell of cells) {
         if (!cell.children[0]) freeCells.push(cell);
     }
-    const cell = Math.floor(Math.random() * freeCells.length),
-    circle = circleCode.cloneNode(true);
-    freeCells[cell].append(circle);
-    if (win()) {
-        setTimeout(() => {
-            alert('computer wins');
-        }, 400);  
+    if (freeCells.length === 0) {
+            alert('draw');
+            reloadPage();
     } else {
-        move = !move;
+        const cell = Math.floor(Math.random() * freeCells.length),
+            circle = circleCode.cloneNode(true);
+        freeCells[cell].append(circle);
+        if (win()) {
+            setTimeout(() => {
+                alert('computer wins');
+                reloadPage();
+            }, 400);
+        } else {
+            move = !move;
+        }
     }
 };
