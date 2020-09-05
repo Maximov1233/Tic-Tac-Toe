@@ -10,64 +10,58 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: orange;
-    color: #fff;
-    .container {
-        margin-top: 20px;
+
+    .game {
+        margin-top: 200px;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        .game {
+
+        .field {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-width: 100px;
-            .options {
-                margin-bottom: 20px;
-                background: #23f;
+            flex-wrap: wrap;
+            width: 400px;
+
+            .cell {
                 display: flex;
-                flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                padding: 10px;
-                border-radius: 4px;
-                font-size: 18px;
-                .option {
+                width: 100px;
+                height: 100px;
+                border: 5px solid #000;
+                margin: 10px;
+                cursor: pointer;
+
+                .cross {
+                    position: relative;
+                    width: 100px;
+                    height: 100px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin: 10px 0;
-                    label {
-                        margin-right: 10px;
+                    .line {
+                        position: absolute;
+                        width: 80px;
+                        height: 10px;
+                        background-color: #000;
+                        transform: rotateZ(-45deg);
+
+                        &:last-child {
+                            transform: rotateZ(45deg);
+                        }
                     }
+
+                }
+
+                .circle {
+                    width: 75px;
+                    height: 75px;
+                    border: 5px solid #000;
+                    border-radius: 50%;
                 }
             }
-            canvas {
-                // background: url(../img/bg.png) no-repeat center;
-                background: #1A1A1A;
-                display: block;
-                margin: 0 auto;
-                // margin-left: 320px;
-                margin-right: 50px;
-                // margin-right: 200px;
-                // border: 1px solid black;
-            }
-        }
-        
-        .start {
-            margin-top: 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 20px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-            background: #23f;
-            color: #fff;
-            cursor: pointer;
         }
     }
-    
 }

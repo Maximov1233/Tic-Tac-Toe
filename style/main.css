@@ -11,28 +11,10 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: orange;
-  color: #fff;
 }
 
-body .container {
-  margin-top: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-body .container .game {
+body .game {
+  margin-top: 200px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -42,31 +24,9 @@ body .container .game {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 100px;
 }
 
-body .container .game .options {
-  margin-bottom: 20px;
-  background: #23f;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 18px;
-}
-
-body .container .game .options .option {
+body .game .field {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,31 +36,61 @@ body .container .game .options .option {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 10px 0;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 400px;
 }
 
-body .container .game .options .option label {
-  margin-right: 10px;
-}
-
-body .container .game canvas {
-  background: #1A1A1A;
-  display: block;
-  margin: 0 auto;
-  margin-right: 50px;
-}
-
-body .container .start {
-  margin-top: 30px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: #23f;
-  color: #fff;
+body .game .field .cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 5px solid #000;
+  margin: 10px;
   cursor: pointer;
+}
+
+body .game .field .cell .cross {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .game .field .cell .cross .line {
+  position: absolute;
+  width: 80px;
+  height: 10px;
+  background-color: #000;
+  -webkit-transform: rotateZ(-45deg);
+          transform: rotateZ(-45deg);
+}
+
+body .game .field .cell .cross .line:last-child {
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+}
+
+body .game .field .cell .circle {
+  width: 75px;
+  height: 75px;
+  border: 5px solid #000;
+  border-radius: 50%;
 }
 /*# sourceMappingURL=main.css.map */
